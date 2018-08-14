@@ -1,6 +1,6 @@
 .vertical-center {
     min-height: 90%;
-    
+
     /*display: flex;*/
     align-items: center;
 }
@@ -8,4 +8,9 @@
 .nav {
     margin-top: 10px;
     margin-right: 10px;
+}
+
+.on-right {
+    left: auto !important;
+    right: 0px;
 }
