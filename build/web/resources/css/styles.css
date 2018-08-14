@@ -9,3 +9,8 @@
     margin-top: 10px;
     margin-right: 10px;
 }
+
+img {
+    border-radius: 50%;
+    max-height: 80px;
+}
