@@ -17,35 +17,49 @@ public class LoginController {
     private boolean emailErr;
     private boolean passErr;
     private boolean usrErr;
-    
+
     private final String REGEX = "^\\s*$";
 
     public String doLogin(String email, String pass, boolean remember) {
-        if (email.isEmpty() || email.replaceAll(REGEX, "null").equals("null")) {
-            this.emailErr = true;
-            return "faces/err/index.xhtml";
-        } else {
-            if (pass.isEmpty() || pass.replaceAll(REGEX, "null").equals("null")) {
-                this.passErr = true;
-                return "faces/err/index.xhtml";
-            } else {
-                if (email.equals("root@root.com")) {
-                    return "faces/admin/index.html";
-                } else {
-                    this.user = usrCtrl.getUsers(email);
-                    if (this.user != null) {
-                        if (this.user.getPass().equals(pass)) {
-                            return "faces/profile/index.xhtml";
-                        } else {
-                            this.usrErr = true;
-                            return "";
-                        }
-                    }
-                }
+        if(goodEmail(email)) {
+            if(goodPass(pass)) {
+                if(isAdmin(email)) return "faces/admin/index.html";
+                else if(correctLogin(email, pass)) return "faces/profile/index.xhtml";
+                else return "";
             }
         }
         
-        return "";
+        return "faces/err/index.xhtml";
+    }
+
+    public boolean goodEmail(String email) {
+        if (email.isEmpty() || email.replaceAll(REGEX, "null").equals("null")) {
+            this.emailErr = true;
+            return false;
+        } else return true;
+    }
+
+    public boolean goodPass(String pass) {
+        if (pass.isEmpty() || pass.replaceAll(REGEX, "null").equals("null")) {
+            this.passErr = true;
+            return false;
+        } else return true;
+    }
+
+    public boolean isAdmin(String email) {
+        return email.equals("root@root.com");
+    }
+
+    public boolean correctLogin(String email, String pass) {
+        this.user = usrCtrl.getUsers(email);
+        if (this.user == null) return false;
+        else {
+            if (this.user.getPass().equals(pass)) return true;
+            else {
+                this.usrErr = true;
+                return false;
+            }
+        }
     }
 
     public LoginController() {
