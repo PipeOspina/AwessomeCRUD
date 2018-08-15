@@ -20,11 +20,21 @@ public class RegisterController extends LoginController {
     private String lastName;
     private String birthday;
     
+    private final String REGEX_BIRTH = "^(0?[1-9]|[12][0-9]|3[01])[\\/\\-](0?[1-9]|1[012])[\\/\\-]\\d{4}$";
+    
     public RegisterController() {
     }
     
     public String doSignup(String email, String name, String lastName, String birthday, String pass, boolean accept) {
         return "";
+    }
+    
+    public boolean correctFormat(String date) {
+        return date.matches(this.REGEX_BIRTH);
+    }
+    
+    public boolean confirmPass(String pass, String confirm) {
+        return pass.equals(confirm);
     }
 
     public String getName() {

@@ -34,8 +34,12 @@
                 <h:inputText a:placeholder="Apellidos" class="form-control" id="lastNameInput"  a:type="text" value="#{lastName}"/>
             </div>
             <div class="form-group">
-                <h:inputText a:placeholder="Fecha de Nacimiento" class="form-control" id="birthdayInput"  a:type="text" value="#{birthday}"/>
-                <small id="birthdayInputHelper" class="form-text text-muted">El formato debe ser AAAA-MM-DD</small>
+                <h:inputText a:placeholder="Fecha de Nacimiento" class="form-control" id="birthdayInput"  a:type="text" value="#{birthday}">
+                    <f:convertDateTime pattern="dd-MM-yyyy"/>
+                </h:inputText>
+                <f:ajax render="birthdayInputHelper" execute="birthdayInput" event="mouseout"/>
+                <!--<small id="birthdayInputHelper" class="form-text text-muted text-danger">El formato debe ser DD-MM-AAAA</small>-->
+                <h:outputText id="birthdayInputHelper" class="form-text text-muted text-danger" value="El formato debe ser DD-MM-AAAA"/>
             </div>
             <div class="form-group">
                 <h:inputSecret class="form-control" id="passInput" a:placeholder="Contraseña" a:type="password" value="#{pass}"/>

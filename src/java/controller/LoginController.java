@@ -23,7 +23,7 @@ public class LoginController {
     public String doLogin(String email, String pass, boolean remember) {
         if(goodEmail(email)) {
             if(goodPass(pass)) {
-                if(isAdmin(email)) return "faces/admin/index.html";
+                if(isAdmin(email)) return "faces/admin/index.xhtml";
                 else if(correctLogin(email, pass)) return "faces/profile/index.xhtml";
                 else return "";
             }
